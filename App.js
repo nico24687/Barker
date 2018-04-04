@@ -20,14 +20,19 @@ export default class App extends Component {
         null,
         { dx: this.pan.x, dy: this.pan.y },
       ]),
-      onPanResponderRelease: (e, gesture) => console.log('Released', gesture.moveY),
+      onPanResponderRelease: () => {
+        Animated.spring(this.pan,{
+          toValue: {x:0, y:0},
+          friction: 4.5,
+        }).start()
+      },
     })
   }
 
   render() {
     const rotateCard = this.pan.x.interpolate({
-      inputRange: [-100, 0, 100],
-      outputRange: ['-10deg', '0deg', '10deg'],
+      inputRange: [-200, 0, 200],
+      outputRange: ['10deg', '0deg', '-10deg'],
     })
 
 
