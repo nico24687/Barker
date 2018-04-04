@@ -43,8 +43,8 @@ export default class Card extends Component {
   }
 
   render() {
-    
-    const fbImage = `https://graph.facebook.com/${this.props.profile.id}/picture?height=500`
+    const {birthday, name, bio, id} = this.props.profile
+    const fbImage = `https://graph.facebook.com/${id}/picture?height=500`
     const rotateCard = this.pan.x.interpolate({
       inputRange: [-200, 0, 200],
       outputRange: ['10deg', '0deg', '-10deg'],
@@ -68,8 +68,8 @@ export default class Card extends Component {
           source={{ uri: fbImage }}
         />
         <View style={{ margin: 20 }}>
-          <Text stlye={{ fontSize: 20 }}>{this.props.profile.name}</Text>
-          <Text style={{ fontSize: 15, color: 'darkgrey' }}>{this.props.profile.bio}</Text>
+          <Text stlye={{ fontSize: 20 }}>{name}, {birthday}</Text>
+          <Text style={{ fontSize: 15, color: 'darkgrey' }}>{bio}</Text>
         </View>
       </Animated.View>
     )
