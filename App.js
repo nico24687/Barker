@@ -4,23 +4,47 @@ import {
   View,
   Image,
   Text,
+  PanResponder,
+  Animated,
 } from 'react-native'
 
 const fbImage = 'https://graph.facebook.com/1637993149777250/picture?height=500'
 
 export default class App extends Component {
+  componentWillMount() {
+    this.pan = new Animated.ValueXY()
+
+    this.cardPanResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([
+        null,
+        { dx: this.pan.x, dy: this.pan.y },
+      ]),
+      onPanResponderRelease: (e, gesture) => console.log('Released', gesture.moveY),
+    })
+  }
+
   render() {
+    const animatedStyle = {
+      transform: [
+        { translateX: this.pan.x },
+        { translateY: this.pan.y },
+      ],
+    }
+
     return (
-      <View style={styles.card}>
+      <Animated.View
+        {...this.cardPanResponder.panHandlers}
+        style={[styles.card, animatedStyle]}>
         <Image
-          style={{flex:1}}
-          source={{ uri: fbImage}}
+          style={{ flex: 1 }}
+          source={{ uri: fbImage }}
         />
-        <View style={{margin:20}}>
-          <Text stlye={{fontSize:20}}>Miranda, 6</Text>
-          <Text style={{fontSize:15, color:'darkgrey'}}>Chow Chow </Text>
+        <View style={{ margin: 20 }}>
+          <Text stlye={{ fontSize: 20 }}>Miranda, 6</Text>
+          <Text style={{ fontSize: 15, color: 'darkgrey' }}>Chow Chow </Text>
         </View>
-      </View>
+      </Animated.View>
     )
   }
 }
