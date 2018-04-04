@@ -68,7 +68,7 @@ export default class Card extends Component {
           source={{ uri: fbImage }}
         />
         <View style={{ margin: 20 }}>
-          <Text stlye={{ fontSize: 20 }}>{name}, {birthday}</Text>
+          <Text stlye={{ fontSize: 20 }}>{name}, { 2018 - birthday.substr(birthday.length - 4)}</Text>
           <Text style={{ fontSize: 15, color: 'darkgrey' }}>{bio}</Text>
         </View>
       </Animated.View>
