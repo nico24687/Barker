@@ -25,10 +25,17 @@ export default class App extends Component {
   }
 
   render() {
+    const rotateCard = this.pan.x.interpolate({
+      inputRange: [-100, 0, 100],
+      outputRange: ['-10deg', '0deg', '10deg'],
+    })
+
+
     const animatedStyle = {
       transform: [
         { translateX: this.pan.x },
         { translateY: this.pan.y },
+        {rotate: rotateCard},
       ],
     }
 
