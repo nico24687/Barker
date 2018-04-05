@@ -9,10 +9,14 @@ export default class App extends Component {
   render() {
     return(
       <View style={{flex:1}}>
-        <Card profile={profiles[0]} />
-        <Card profile={profiles[1]} />
-        <Card profile={profiles[2]} />
-        <Card profile={profiles[3]} />
+        {profiles.reverse().map((profile, i) => {
+          return(
+            <Card
+              key={i}
+              profile={profile}
+            />
+          )
+        })}
       </View>
     )
   }
