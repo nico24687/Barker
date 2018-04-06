@@ -7,7 +7,7 @@ export default class Login extends Component {
     return(
     <View style={styles.container}>
       <FacebookButton
-        onPress={()=> console.log('facebook button')}
+        onPress={()=> this.props.navigation.navigate('Home')}
       />
     </View>
     )
