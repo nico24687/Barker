@@ -12,6 +12,12 @@ export default class Login extends Component {
     return firebase.auth().signInWithCredential(credential)
   }
 
+  createUser = (uid, userData) => {
+    firebase.database().ref('users').child(uid).update(userData)
+  }
+
+
+
   login = async () => {
     const ADD_ID = '1977451872571463'
     const options ={
@@ -21,8 +27,9 @@ export default class Login extends Component {
     if (type=== 'success') {
       const fields = ['id', 'first_name', 'last_name', 'gender', 'birthday', 'locale']
       const response = await fetch(`https://graph.facebook.com/me?fields=${fields.toString()}&access_token=${token}`)
-      console.log(await response.json())
-      this.authenticate(token)
+      const userData = await response.json()
+      const {uid} = await this.authenticate(token)
+      this.createUser(uid, userData)
     }
   }
 
