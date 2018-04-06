@@ -6,6 +6,15 @@ import FacebookButton from '../components/facebookButton'
 
 export default class Login extends Component {
 
+  componentDidMount(){
+    // firebase.auth().signOut()
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user){
+        this.props.navigation.navigate('Home')
+      }
+    })
+  }
+
   authenticate = (token) => {
     const provider = firebase.auth.FacebookAuthProvider
     const credential = provider.credential(token)
@@ -15,8 +24,6 @@ export default class Login extends Component {
   createUser = (uid, userData) => {
     firebase.database().ref('users').child(uid).update(userData)
   }
-
-
 
   login = async () => {
     const ADD_ID = '1977451872571463'
