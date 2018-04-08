@@ -17,14 +17,21 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    this.updateUserLocation(this.props.navigation.state.params.uid)
-    firebase.database().ref().child('users').once('value', (snap) => {
-      let profiles = []
-      snap.forEach((profile) => {
-        const { name, bio, birthday, id } = profile.val()
-        profiles.push({ name, bio, birthday, id })
-      })
-      this.setState({ profiles })
+    const { uid } = this.props.navigation.state.params
+    this.updateUserLocation(uid)
+    this.getProfiles(uid)
+  }
+
+  getProfiles = async (uid) => {
+    const geoFireRef = new GeoFire(firebase.database().ref('geoData'))
+    const userLocation = await geoFireRef.get(uid)
+    console.log('userLocation', userLocation)
+    const geoQuery = geoFireRef.query({
+      center: userLocation,
+      radius: 10,
+    })
+    geoQuery.on('key_entered', (key,location, distance) => {
+      console.log(key + ' at ' + location + ' is ' + distance + 'km from the center')
     })
   }
 
@@ -33,7 +40,9 @@ export default class Home extends Component {
     const { status } = await Permissions.askAsync(Permissions.LOCATION)
     if (status === 'granted') {
       const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: false })
-      const {latitude, longitude} = location.coords
+      // const {latitude, longitude} = location.coords
+      const latitude = 37.39239
+      const longitude = -122.09072
       const geoFireRef = new GeoFire(firebase.database().ref('geoData'))
       geoFireRef.set(uid, [latitude, longitude])
       console.log('Permission Granted', location)
