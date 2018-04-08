@@ -22,6 +22,11 @@ export default class Home extends Component {
     this.getProfiles(uid)
   }
 
+  getUser = (uid) => {
+    return firebase.database().ref('users').child(uid).once('value')
+  }
+
+
   getProfiles = async (uid) => {
     const geoFireRef = new GeoFire(firebase.database().ref('geoData'))
     const userLocation = await geoFireRef.get(uid)
@@ -30,8 +35,12 @@ export default class Home extends Component {
       center: userLocation,
       radius: 10,
     })
-    geoQuery.on('key_entered', (key,location, distance) => {
-      console.log(key + ' at ' + location + ' is ' + distance + 'km from the center')
+    geoQuery.on('key_entered', async(uid,location, distance) => {
+      console.log(uid + ' at ' + location + ' is ' + distance + 'km from the center')
+      const user = await this.getUser(uid)
+      console.log(user.val().first_name)
+      const profiles = [...this.state.profiles, user.val()]
+      this.setState({profiles})
     })
   }
 

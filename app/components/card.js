@@ -43,7 +43,8 @@ export default class Card extends Component {
   }
 
   render() {
-    const {birthday, name, bio, id} = this.props.profile
+    const { birthday, first_name, work, id } = this.props.profile
+    const bio = (work && work[0] && work[0].position) ? work[0].position.name : null
     const fbImage = `https://graph.facebook.com/${id}/picture?height=500`
     const rotateCard = this.pan.x.interpolate({
       inputRange: [-200, 0, 200],
@@ -68,8 +69,8 @@ export default class Card extends Component {
           source={{ uri: fbImage }}
         />
         <View style={{ margin: 20 }}>
-          <Text stlye={{ fontSize: 20 }}>{name}, { 2018 - birthday.substr(birthday.length - 4)}</Text>
-          <Text style={{ fontSize: 15, color: 'darkgrey' }}>{bio}</Text>
+          <Text stlye={{ fontSize: 20 }}>{first_name}, { 2018 - birthday.substr(birthday.length - 4)}</Text>
+          {bio ? <Text style={{ fontSize: 15, color: 'darkgrey' }}>{bio}</Text> : <View />}
         </View>
       </Animated.View>
     )
