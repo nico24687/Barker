@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 import Card from '../components/card'
 import * as firebase from 'firebase'
+import GeoFire from 'geofire'
 
 
 
@@ -16,7 +17,7 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    this.updateUserLocation()
+    this.updateUserLocation(this.props.navigation.state.params.uid)
     firebase.database().ref().child('users').once('value', (snap) => {
       let profiles = []
       snap.forEach((profile) => {
@@ -27,11 +28,14 @@ export default class Home extends Component {
     })
   }
 
-  updateUserLocation = async () => {
+  updateUserLocation = async (uid) => {
     const { Permissions, Location } = Expo
     const { status } = await Permissions.askAsync(Permissions.LOCATION)
     if (status === 'granted') {
       const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: false })
+      const {latitude, longitude} = location.coords
+      const geoFireRef = new GeoFire(firebase.database().ref('geoData'))
+      geoFireRef.set(uid, [latitude, longitude])
       console.log('Permission Granted', location)
     } else {
       console.log('Permission Denied')
