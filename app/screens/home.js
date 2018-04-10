@@ -4,6 +4,8 @@ import { View } from 'react-native'
 import Card from '../components/card'
 import * as firebase from 'firebase'
 import GeoFire from 'geofire'
+import SimpleScroller from '../components/simpleScroller'
+
 
 
 
@@ -64,9 +66,9 @@ export default class Home extends Component {
     this.setState({ profileIndex: this.state.profileIndex + 1 })
   }
 
-  render() {
+  cardStack = () => {
     const { profileIndex } = this.state
-    return (
+    return(
       <View style={{ flex: 1 }}>
         {this.state.profiles.slice(profileIndex, profileIndex + 3).reverse().map((profile) => {
           return (
@@ -78,6 +80,14 @@ export default class Home extends Component {
           )
         })}
       </View>
+    )
+  }
+
+  render() {
+
+    return (
+      <SimpleScroller
+        screen={this.cardStack()}/>
     )
   }
 }
