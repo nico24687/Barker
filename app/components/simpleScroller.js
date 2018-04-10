@@ -18,16 +18,28 @@ export default class SimpleScroller extends Component {
         null,
         { dx: this.pan },
       ]),
-      onPanResponderRelease: () => {
+      onPanResponderRelease: (e, {vx}) => {
         this.pan.flattenOffset()
-        const move = Math.round(this.pan._value / width) * width 
+        let move = Math.round(this.pan._value / width) * width 
+        if (Math.abs(vx) > 0.25) {
+          const direction = vx / Math.abs(vx)
+          const scrollPos = direction > 0 ? Math.ceil(this.pan._value / width) : Math.floor(this.pan._value / width)
+          move = scrollPos * width
+        }
+        const minScroll = (this.props.screens.length - 1 ) * -width 
         Animated.spring(this.pan, {
-          toValue: move,
+          toValue: this.clamp(move, minScroll, 0),
+          bounciness: 0,
         }).start()
       },
     })
 
   }
+
+  clamp = (num, min, max) => {
+    return num <= min ? min : num >= max ? max : num
+  }
+
   render(){
     const animatedStyles = {
       transform: [
