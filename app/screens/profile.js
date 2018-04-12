@@ -31,25 +31,29 @@ export default class Profile extends Component{
         <View style={styles.label}>
           <Text>Distance</Text>
           <Text style={{ color: 'darkgrey' }}>{distnaceValue}km</Text>
+        </View >
+        <View style={styles.slider}>
+          <Slider
+            min={1}
+            max={30}
+            values={distnaceValue}
+            onValuesChange={val => this.setState({ distnaceValue: val })}
+            onValuesChangeFinish={val => this.updateUser('distance',val[0]) }
+          />
         </View>
-        <Slider
-          min={1}
-          max={30}
-          values={distnaceValue}
-          onValuesChange={val => this.setState({ distnaceValue: val })}
-          onValuesChangeFinish={val => this.updateUser('distance',val[0]) }
-        />
         <View style={styles.label}>
           <Text>Age Range</Text>
           <Text style={{color: 'darkgrey'}}>{ageRangeValues.join('-')}</Text>
         </View>
-        <Slider
-          min={0}
-          max={16}
-          values={ageRangeValues}
-          onValuesChange={val => this.setState({ageRangeValues:val})}
-          onValuesChangeFinish={val => this.updateUser('ageRange', val)}
-        />
+        <View style={styles.slider}>
+          <Slider
+            min={0}
+            max={16}
+            values={ageRangeValues}
+            onValuesChange={val => this.setState({ageRangeValues:val})}
+            onValuesChangeFinish={val => this.updateUser('ageRange', val)}
+          />
+        </View>
         <View style={styles.switch}>
           <Text>Show Male</Text>
           <Switch
@@ -90,13 +94,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginLeft: 20,
-    marginRight: 50,
+    marginRight: 80,
+    marginBottom: 20,
   },
   switch: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: 20,
-
+  },
+  slider: {
+    marginLeft: 40,
+    marginRight: 40,
   }
 })
