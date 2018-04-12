@@ -6,15 +6,22 @@ export default class Profile extends Component{
     const {first_name} = this.props.user
     return(
       <View style={styles.container}>
-        <Text>{first_name}</Text>
+        <View style={styles.profile}>
+          <Text>{first_name}</Text>
+        </View>
       </View>
     )
   }
 }
 
-const styles= StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-  }
+  },
+  profile: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })
