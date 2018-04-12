@@ -1,14 +1,18 @@
 import Expo from 'expo'
 import firebase from 'firebase'
 import React, {Component} from 'react'
-import {View, StyleSheet,} from 'react-native'
+import {View, StyleSheet, ActivityIndicator} from 'react-native'
 import {NavigationActions } from 'react-navigation'
 import FacebookButton from '../components/facebookButton'
 
 export default class Login extends Component {
 
+  state = {
+    showSpinner: true,
+  }
+
   componentDidMount() {
-     // firebase.auth().signOut()
+    // firebase.auth().signOut()
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         const resetAction = NavigationActions.reset({
@@ -18,6 +22,8 @@ export default class Login extends Component {
           ],
         })
         this.props.navigation.dispatch(resetAction)
+      } else {
+        this.setState({ showSpinner: false })
       }
     })
   }
@@ -39,6 +45,7 @@ export default class Login extends Component {
     }
     const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync(ADD_ID, options)
     if (type=== 'success') {
+      this.setState({ showSpinner: true })
       const fields = ['id', 'first_name', 'last_name', 'gender', 'birthday', 'locale']
       const response = await fetch(`https://graph.facebook.com/me?fields=${fields.toString()}&access_token=${token}`)
       const userData = await response.json()
@@ -48,16 +55,18 @@ export default class Login extends Component {
   }
 
 
-  render(){
-    return(
-    <View style={styles.container}>
-      <FacebookButton
-        onPress={this.login}
-      />
-    </View>
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.state.showSpinner ?
+          <ActivityIndicator animating={this.state.showSpinner} /> :
+          <FacebookButton onPress={this.login} />
+        }
+      </View>
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
