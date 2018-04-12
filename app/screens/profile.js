@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import {StyleSheet, View, Text, } from 'react-native'
+import CircleImage from '../components/circleImage'
 
 export default class Profile extends Component{
   render(){
-    const {first_name} = this.props.user
+    const {first_name,id} = this.props.user
     return(
       <View style={styles.container}>
         <View style={styles.profile}>
-          <Text>{first_name}</Text>
+          <CircleImage facebookID={id} size={120}/>
+          <Text style={{fontSize: 20}}>{first_name}</Text>
         </View>
       </View>
     )
