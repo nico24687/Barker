@@ -12,7 +12,7 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    // firebase.auth().signOut()
+    firebase.auth().signOut()
     firebase.auth().onAuthStateChanged(auth => {
       if (auth) {
         this.firebaseRef = firebase.database().ref('users')
@@ -47,7 +47,12 @@ export default class Login extends Component {
   }
 
   createUser = (uid, userData) => {
-    firebase.database().ref('users').child(uid).update({ ...userData, uid })
+    const defaults = {
+      uid,
+      distance: 5,
+      ageRange: [0,16],
+    }
+    firebase.database().ref('users').child(uid).update({ ...userData, ...defaults })
   }
 
   login = async () => {
