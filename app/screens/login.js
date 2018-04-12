@@ -12,20 +12,24 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    firebase.auth().signOut()
+    // firebase.auth().signOut()
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Home', params: { uid: user.uid } }),
-          ],
-        })
-        this.props.navigation.dispatch(resetAction)
+        this.goHome(user.uid)
       } else {
         this.setState({ showSpinner: false })
       }
     })
+  }
+
+  goHome(uid){
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home', params: { uid} }),
+      ],
+    })
+    this.props.navigation.dispatch(resetAction)
   }
 
   authenticate = (token) => {
