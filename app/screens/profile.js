@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
-import {StyleSheet, View, } from 'react-native'
+import {StyleSheet, View, Text, } from 'react-native'
 
 export default class Profile extends Component{
   render(){
+    const {first_name} = this.props.user
     return(
-      <View style={styles.container} />
+      <View style={styles.container}>
+        <Text>{first_name}</Text>
+      </View>
     )
   }
 }

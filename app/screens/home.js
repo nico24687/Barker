@@ -89,7 +89,7 @@ export default class Home extends Component {
     return (
       <SimpleScroller
         screens={[
-         <Profile />,
+         <Profile user={this.state.user} />,
           this.cardStack(),
         ]}/>
     )
