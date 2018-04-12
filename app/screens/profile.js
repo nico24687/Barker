@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {StyleSheet, View, Text, } from 'react-native'
 import CircleImage from '../components/circleImage'
+import Slider from 'react-native-multi-slider-cloneable'
 
 export default class Profile extends Component{
   render(){
@@ -11,6 +12,9 @@ export default class Profile extends Component{
           <CircleImage facebookID={id} size={120}/>
           <Text style={{fontSize: 20}}>{first_name}</Text>
         </View>
+        <Slider
+          values={[1,10]}
+        />
       </View>
     )
   }
