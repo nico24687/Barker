@@ -16,6 +16,7 @@ export default class Home extends Component {
   state = {
     profileIndex: 0,
     profiles: [],
+    user: this.props.navigation.state.params.user,
   }
 
   componentWillMount() {
