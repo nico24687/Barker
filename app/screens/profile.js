@@ -7,16 +7,16 @@ import * as firebase from 'firebase'
 export default class Profile extends Component{
 
   state={
-    ageRangeValues: [0,16],
-    distnaceValue: [5],
-    showMen: false,
-    showWomen: false,
+    ageRangeValues: this.props.user.ageRange,
+    distnaceValue: [this.props.user.distance],
+    showMen: this.props.user.showMen,
+    showWomen: this.props.user.showWomen,
   }
 
-  updateUser = (value) => {
+  updateUser = (key, value) => {
     const {uid} = this.props.user
     firebase.database().ref('users').child(uid)
-      .update({test: value})
+      .update({[key]: value})
   } 
 
   render(){
@@ -37,7 +37,7 @@ export default class Profile extends Component{
           max={30}
           values={distnaceValue}
           onValuesChange={val => this.setState({ distnaceValue: val })}
-          onValuesChangeFinish={val => this.updateUser(val) }
+          onValuesChangeFinish={val => this.updateUser('distance',val[0]) }
         />
         <View style={styles.label}>
           <Text>Age Range</Text>
@@ -48,19 +48,26 @@ export default class Profile extends Component{
           max={16}
           values={ageRangeValues}
           onValuesChange={val => this.setState({ageRangeValues:val})}
+          onValuesChangeFinish={val => this.updateUser('ageRange', val)}
         />
         <View style={styles.switch}>
           <Text>Show Male</Text>
           <Switch
             value={showMen}
-            onValueChange={val => this.setState({showMen:val})}
+            onValueChange={val => {
+              this.setState({showMen:val})
+              this.updateUser('showMen', val)
+            }}
           />
         </View>
         <View style={styles.switch}>
           <Text>Show Female</Text>
           <Switch
             value={showWomen}
-            onValueChange={val => this.setState({ showWomen: val })}
+            onValueChange={val => {
+              this.setState({ showWomen: val })
+              this.updateUser('showWomen', val)
+            }}
           />
         </View>
       </View>
