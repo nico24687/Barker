@@ -5,7 +5,7 @@ import Card from '../components/card'
 import * as firebase from 'firebase'
 import GeoFire from 'geofire'
 import SimpleScroller from '../components/simpleScroller'
-
+import Profile from './profile'
 
 
 
@@ -89,7 +89,7 @@ export default class Home extends Component {
     return (
       <SimpleScroller
         screens={[
-          <View style={{flex:1, backgroundColor: 'red'}} />,
+         <Profile />,
           this.cardStack(),
         ]}/>
     )
