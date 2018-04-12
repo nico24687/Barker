@@ -2,14 +2,23 @@ import React, {Component} from 'react'
 import {StyleSheet, View, Text, Switch,} from 'react-native'
 import CircleImage from '../components/circleImage'
 import Slider from 'react-native-multi-slider-cloneable'
+import * as firebase from 'firebase'
 
 export default class Profile extends Component{
+
   state={
     ageRangeValues: [0,16],
     distnaceValue: [5],
     showMen: false,
     showWomen: false,
   }
+
+  updateUser = (value) => {
+    const {uid} = this.props.user
+    firebase.database().ref('users').child(uid)
+      .update({test: value})
+  } 
+
   render(){
     const {first_name,id} = this.props.user
     const {ageRangeValues, distnaceValue, showMen, showWomen} = this.state
@@ -28,6 +37,7 @@ export default class Profile extends Component{
           max={30}
           values={distnaceValue}
           onValuesChange={val => this.setState({ distnaceValue: val })}
+          onValuesChangeFinish={val => this.updateUser(val) }
         />
         <View style={styles.label}>
           <Text>Age Range</Text>
