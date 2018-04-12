@@ -7,11 +7,12 @@ export default class Profile extends Component{
   state={
     ageRangeValues: [0,16],
     distnaceValue: [5],
-    showMen: true,
+    showMen: false,
+    showWomen: false,
   }
   render(){
     const {first_name,id} = this.props.user
-    const {ageRangeValues, distnaceValue, showMen} = this.state
+    const {ageRangeValues, distnaceValue, showMen, showWomen} = this.state
     return(
       <View style={styles.container}>
         <View style={styles.profile}>
@@ -38,10 +39,20 @@ export default class Profile extends Component{
           values={ageRangeValues}
           onValuesChange={val => this.setState({ageRangeValues:val})}
         />
-        <Switch
-          value={showMen}
-          onValueChange={val => this.setState({showMen:val})}
-        />
+        <View style={styles.switch}>
+          <Text>Show Male</Text>
+          <Switch
+            value={showMen}
+            onValueChange={val => this.setState({showMen:val})}
+          />
+        </View>
+        <View style={styles.switch}>
+          <Text>Show Female</Text>
+          <Switch
+            value={showWomen}
+            onValueChange={val => this.setState({ showWomen: val })}
+          />
+        </View>
       </View>
     )
   }
@@ -63,5 +74,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: 20,
     marginRight: 50,
+  },
+  switch: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: 20,
+
   }
 })
