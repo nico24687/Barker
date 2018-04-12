@@ -2,15 +2,22 @@ import Expo from 'expo'
 import firebase from 'firebase'
 import React, {Component} from 'react'
 import {View, StyleSheet,} from 'react-native'
+import {NavigationActions } from 'react-navigation'
 import FacebookButton from '../components/facebookButton'
 
 export default class Login extends Component {
 
-  componentDidMount(){
-    // firebase.auth().signOut()
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user){
-        this.props.navigation.navigate('Home', {uid:user.uid})
+  componentDidMount() {
+     // firebase.auth().signOut()
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Home', params: { uid: user.uid } }),
+          ],
+        })
+        this.props.navigation.dispatch(resetAction)
       }
     })
   }
