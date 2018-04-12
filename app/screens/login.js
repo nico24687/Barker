@@ -19,7 +19,8 @@ export default class Login extends Component {
         this.firebaseRef.child(auth.uid).on('value', snap => {
           const user = snap.val()
           if (user != null){
-            this.goHome(user.uid)
+            this.firebaseRef.child(auth.uid).off('value')
+            this.goHome(user)
           }
         })
         
@@ -29,11 +30,11 @@ export default class Login extends Component {
     })
   }
 
-  goHome(uid){
+  goHome(user){
     const resetAction = NavigationActions.reset({
       index: 0,
       actions: [
-        NavigationActions.navigate({ routeName: 'Home', params: { uid} }),
+        NavigationActions.navigate({ routeName: 'Home', params: { user} }),
       ],
     })
     this.props.navigation.dispatch(resetAction)

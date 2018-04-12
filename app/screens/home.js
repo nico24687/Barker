@@ -19,7 +19,7 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    const { uid } = this.props.navigation.state.params
+    const { uid } = this.props.navigation.state.params.user
     this.updateUserLocation(uid)
     this.getProfiles(uid)
   }
