@@ -13,9 +13,16 @@ export default class Login extends Component {
 
   componentDidMount() {
     // firebase.auth().signOut()
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.goHome(user.uid)
+    firebase.auth().onAuthStateChanged(auth => {
+      if (auth) {
+        this.firebaseRef = firebase.database().ref('users')
+        this.firebaseRef.child(auth.uid).on('value', snap => {
+          const user = snap.val()
+          if (user != null){
+            this.goHome(user.uid)
+          }
+        })
+        
       } else {
         this.setState({ showSpinner: false })
       }
