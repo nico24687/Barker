@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, View, Text, } from 'react-native'
+import {StyleSheet, View, Text, Switch,} from 'react-native'
 import CircleImage from '../components/circleImage'
 import Slider from 'react-native-multi-slider-cloneable'
 
@@ -7,10 +7,11 @@ export default class Profile extends Component{
   state={
     ageRangeValues: [0,16],
     distnaceValue: [5],
+    showMen: true,
   }
   render(){
     const {first_name,id} = this.props.user
-    const {ageRangeValues, distnaceValue} = this.state
+    const {ageRangeValues, distnaceValue, showMen} = this.state
     return(
       <View style={styles.container}>
         <View style={styles.profile}>
@@ -36,6 +37,10 @@ export default class Profile extends Component{
           max={16}
           values={ageRangeValues}
           onValuesChange={val => this.setState({ageRangeValues:val})}
+        />
+        <Switch
+          value={showMen}
+          onValueChange={val => this.setState({showMen:val})}
         />
       </View>
     )
