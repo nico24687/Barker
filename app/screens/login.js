@@ -12,7 +12,7 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    // firebase.auth().signOut()
+    firebase.auth().signOut()
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         const resetAction = NavigationActions.reset({
@@ -35,7 +35,7 @@ export default class Login extends Component {
   }
 
   createUser = (uid, userData) => {
-    firebase.database().ref('users').child(uid).update(userData)
+    firebase.database().ref('users').child(uid).update({ ...userData, uid })
   }
 
   login = async () => {
