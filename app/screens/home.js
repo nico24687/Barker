@@ -73,20 +73,20 @@ export default class Home extends Component {
     }
   }
 
-  relate = (userUid, type, profileUid, status) => {
-    firebase.database().ref('relationships').child(userUid).child(type)
-      .update({ [profileUid]: status})
+  relate = (userUid, profileUid, status) => {
+    let relationUpdate = {}
+    relationUpdate[`${userUid}/liked/${profileUid}`] = status
+    relationUpdate[`${profileUid}/likedBack/${userUid}`] = status
+    firebase.database().ref('relationships').update(relationUpdate)
   }
 
   nextCard = (swipedRight, profileUid) => {
     const userUid = this.state.user.uid
     this.setState({ profileIndex: this.state.profileIndex + 1 })
     if(swipedRight){
-      this.relate(userUid, 'liked', profileUid, true)
-      this.relate(profileUid, 'likedBack', userUid, true)
+      this.relate(userUid, profileUid, true)
     } else {
-      this.relate(userUid, 'liked', profileUid, false)
-      this.relate(profileUid, 'likedBack', userUid, false)
+      this.relate(userUid, profileUid, false)
     }
   }
 
