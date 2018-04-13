@@ -73,8 +73,13 @@ export default class Home extends Component {
     }
   }
 
-  nextCard = () => {
+  nextCard = (swipedRight) => {
     this.setState({ profileIndex: this.state.profileIndex + 1 })
+    if(swipedRight){
+      console.log('liked')
+    } else {
+      console.log('not liked')
+    }
   }
 
   cardStack = () => {
