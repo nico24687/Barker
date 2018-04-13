@@ -83,8 +83,10 @@ export default class Home extends Component {
     this.setState({ profileIndex: this.state.profileIndex + 1 })
     if(swipedRight){
       this.relate(userUid, 'liked', profileUid, true)
+      this.relate(profileUid, 'likedBack', userUid, true)
     } else {
       this.relate(userUid, 'liked', profileUid, false)
+      this.relate(profileUid, 'likedBack', userUid, false)
     }
   }
 
