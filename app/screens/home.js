@@ -6,6 +6,7 @@ import * as firebase from 'firebase'
 import GeoFire from 'geofire'
 import SimpleScroller from '../components/simpleScroller'
 import Profile from './profile'
+import filter from '../modules/filter'
 
 
 
@@ -51,7 +52,8 @@ export default class Home extends Component {
       const user = await this.getUser(uid)
       console.log(user.val().first_name)
       const profiles = [...this.state.profiles, user.val()]
-      this.setState({profiles})
+      const filtered = filter(profiles, this.state.user)
+      this.setState({profiles: filtered})
     })
   }
 
