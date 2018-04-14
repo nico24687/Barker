@@ -5,13 +5,17 @@ import * as firebase from 'firebase'
 
 export default class Chat extends Component{
   state ={
-    messages: []
+    messages: [],
+    user: this.props.navigation.state.params.user,
+    profile: this.props.navigation.state.params.profile,
   }
   componentWillMount(){
+    const {user, profile} = this.state
+    this.chatID = user.uid + '-' + profile.uid
     this.setState({messages: demoMessages})
   }
   onSend = (message) => {
-    firebase.database().ref('messages').child('test')
+    firebase.database().ref('messages').child(this.chatID)
       .push({
         ...message[0],
         createdAt: new Date().getTime(),

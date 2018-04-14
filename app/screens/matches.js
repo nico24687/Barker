@@ -48,7 +48,7 @@ export default class Matches extends Component{
     const bio = (work && work[0] && work[0].position) ? work[0].position.name : null
     return(
       <TouchableHighlight
-        onPress={() => this.props.navigation.navigate('Chat')}>
+        onPress={() => this.props.navigation.navigate('Chat', {user: this.props.user, profile: rowData})}>
         <View style={{flexDirection: 'row', backgroundColor: 'white', padding: 10, marginTop:20}}>
           <CircleImage size={80} facebookID={id}/>
           <View style={{justifyContent: 'center', marginLeft:10}}>
