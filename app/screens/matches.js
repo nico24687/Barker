@@ -32,7 +32,9 @@ export default class Matches extends Component{
       const allMatches = this.getOverlap(relations.liked, relations.likedBack)
       console.log('allMatches', allMatches)
       const promises = allMatches.map(profileUid => this.getUser(profileUid))
-      Promise.all(promises).then(data => {console.log(data)})
+      Promise.all(promises).then(data => this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(data),
+      }))
     })
   }
 
