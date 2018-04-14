@@ -8,6 +8,7 @@
     "lodash": "^4.17.5",
     "react": "16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
+    "react-native-gifted-chat": "^0.4.3",
     "react-native-multi-slider-cloneable": "0.0.10",
     "react-navigation": "^1.5.11"
   }
