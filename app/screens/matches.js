@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {ListView, Text} from 'react-native'
+import {ListView, Text, View} from 'react-native'
+import CircleImage from '../components/circleImage'
 
 export default class Matches extends Component{
 
@@ -11,9 +12,13 @@ export default class Matches extends Component{
     this.setState({dataSource:this.state.dataSource.cloneWithRows(demoProfiles)})
   }
 
-  renderRow = () => {
+  renderRow = (rowData) => {
+    const {id, first_name} = rowData
     return(
-      <Text>Hello</Text>
+      <View>
+        <CircleImage size={80} facebookID={id}/>
+        <Text>{first_name}</Text>
+      </View>
     )
   }
 
