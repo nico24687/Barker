@@ -13,21 +13,32 @@ export default class Matches extends Component{
   }
 
   renderRow = (rowData) => {
-    const {id, first_name} = rowData
+    const {id, first_name, work} = rowData
+    const bio = (work && work[0] && work[0].position) ? work[0].position.name : null
     return(
-      <View>
+      <View style={{flexDirection: 'row', backgroundColor: 'white', padding: 10}}>
         <CircleImage size={80} facebookID={id}/>
-        <Text>{first_name}</Text>
+        <View style={{justifyContent: 'center', marginLeft:10}}>
+          <Text style={{fontSize:18}}>{first_name}</Text>
+          <Text style={{ fontSize: 15, color: 'darkgrey' }}>{bio}</Text>
+        </View>
       </View>
+    )
+  }
+
+  renderSeparator = (sectionID, rowID) => {
+    return(
+      <View key={rowID} style={{height:1, backgroundColor: 'whitesmoke', marginLeft:100}}/>
     )
   }
 
   render(){
     return(
       <ListView
-        style={{flex: 1, backgroundColor: 'red'}}
+        style={{flex: 1, backgroundColor: 'white'}}
         dataSource={this.state.dataSource}
         renderRow={this.renderRow}
+        renderSeparator={this.renderSeparator}
       />
     )
   }
