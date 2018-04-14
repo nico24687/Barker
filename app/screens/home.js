@@ -60,7 +60,7 @@ export default class Home extends Component {
   updateUserLocation = async (uid) => {
     const { Permissions, Location } = Expo
     const { status } = await Permissions.askAsync(Permissions.LOCATION)
-    if (status === 'granted') {
+    if (status === 'granted') { 
       const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: false })
       // const {latitude, longitude} = location.coords
       const latitude = 37.39239
