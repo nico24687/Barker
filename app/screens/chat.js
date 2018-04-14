@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View,} from 'react-native'
 import {GiftedChat} from 'react-native-gifted-chat'
+import * as firebase from 'firebase'
 
 export default class Chat extends Component{
   state ={
@@ -10,9 +11,8 @@ export default class Chat extends Component{
     this.setState({messages: demoMessages})
   }
   onSend = (message) => {
-    this.setState({
-      messages: [message[0], ...this.state.messages],
-    })
+    firebase.database().ref('messages').child('test')
+      .push(message[0])
   }
   render(){
     return(
