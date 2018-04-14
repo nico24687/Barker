@@ -73,8 +73,21 @@ export default class Home extends Component {
     }
   }
 
-  nextCard = () => {
+  relate = (userUid, profileUid, status) => {
+    let relationUpdate = {}
+    relationUpdate[`${userUid}/liked/${profileUid}`] = status
+    relationUpdate[`${profileUid}/likedBack/${userUid}`] = status
+    firebase.database().ref('relationships').update(relationUpdate)
+  }
+
+  nextCard = (swipedRight, profileUid) => {
+    const userUid = this.state.user.uid
     this.setState({ profileIndex: this.state.profileIndex + 1 })
+    if(swipedRight){
+      this.relate(userUid, profileUid, true)
+    } else {
+      this.relate(userUid, profileUid, false)
+    }
   }
 
   cardStack = () => {
