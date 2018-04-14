@@ -3,11 +3,15 @@ import {View,} from 'react-native'
 import {GiftedChat} from 'react-native-gifted-chat'
 
 export default class Chat extends Component{
+  onSend = (message) => {
+    console.log('message', message)
+  }
   render(){
     return(
       <GiftedChat
         messages={demoMessages}
         user={{_id: '123test'}}
+        onSend={this.onSend}
       />
     )
   }
