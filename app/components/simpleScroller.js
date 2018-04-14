@@ -9,7 +9,8 @@ export default class SimpleScroller extends Component {
 
 
     this.scrollResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => false,
+      onMoveShouldSetPanResponder: (e, {dx,dy}) => Math.abs(dx) > Math.abs(dy),
       onPanResponderGrant: () => {
         this.pan.setOffset(this.pan._value)
         this.pan.setValue(0)
