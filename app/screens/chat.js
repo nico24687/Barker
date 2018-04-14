@@ -12,6 +12,12 @@ export default class Chat extends Component{
   componentWillMount(){
     const {user, profile} = this.state
     this.chatID = user.uid > profile.uid ? user.uid + '-' + profile.uid : profile.uid + '-' + user.uid
+    this.watchChat()
+  }
+  watchChat = () => {
+    firebase.database().ref('messages').child(this.chatID).on('value', snap => {
+      console.log('messages', snap.val())
+    })
   }
   onSend = (message) => {
     firebase.database().ref('messages').child(this.chatID)
