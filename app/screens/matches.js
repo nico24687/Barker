@@ -21,11 +21,18 @@ export default class Matches extends Component{
     return _.intersection(_.keys(likedTrue,), _.keys(likedBackTrue))
   }
 
+  getUser = (uid) => {
+    return firebase.database().ref('users').child(uid).once('value')
+      .then(snap => snap.val())
+  }
+
   getMatches = (uid) => {
     firebase.database().ref('relationships').child(uid).on('value', snap => {
       const relations = snap.val()
       const allMatches = this.getOverlap(relations.liked, relations.likedBack)
       console.log('allMatches', allMatches)
+      const promises = allMatches.map(profileUid => this.getUser(profileUid))
+      Promise.all(promises).then(data => {console.log(data)})
     })
   }
 
