@@ -27,5 +27,7 @@ export default (profiles, user) => {
     return withinRangeUser && withinRangeProfile
   })
 
-  return filterAgeRange
+  const filtered = _.uniqBy(filterAgeRange, 'uid')
+
+  return filtered
 }
