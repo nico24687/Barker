@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {ListView, Text, View} from 'react-native'
 import CircleImage from '../components/circleImage'
+import * as firebase from 'firebase'
 
 export default class Matches extends Component{
 
@@ -9,7 +10,15 @@ export default class Matches extends Component{
   }
 
   componentWillMount(){
-    this.setState({dataSource:this.state.dataSource.cloneWithRows(demoProfiles)})
+    // this.setState({dataSource:this.state.dataSource.cloneWithRows(demoProfiles)})
+    this.getMatches(this.props.user.uid)
+  }
+
+  getMatches = (uid) => {
+    firebase.database().ref('relationships').child(uid).on('value', snap => {
+      const relations = snap.val()
+      console.log(relations)
+    })
   }
 
   renderRow = (rowData) => {
