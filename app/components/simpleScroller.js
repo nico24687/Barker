@@ -19,22 +19,25 @@ export default class SimpleScroller extends Component {
         null,
         { dx: this.pan },
       ]),
-      onPanResponderRelease: (e, {vx}) => {
-        this.pan.flattenOffset()
-        let move = Math.round(this.pan._value / width) * width 
-        if (Math.abs(vx) > 0.25) {
-          const direction = vx / Math.abs(vx)
-          const scrollPos = direction > 0 ? Math.ceil(this.pan._value / width) : Math.floor(this.pan._value / width)
-          move = scrollPos * width
-        }
-        const minScroll = (this.props.screens.length - 1 ) * -width 
-        Animated.spring(this.pan, {
-          toValue: this.clamp(move, minScroll, 0),
-          bounciness: 0,
-        }).start()
-      },
+      onPanResponderReject: this.handlePanResponderEnd,
+      onPanResponderRelease: this.handlePanResponderEnd,
     })
 
+  }
+
+  handlePanResponderEnd = (e, {vx}) => {
+    this.pan.flattenOffset()
+    let move = Math.round(this.pan._value / width) * width
+    if (Math.abs(vx) > 0.25) {
+      const direction = vx / Math.abs(vx)
+      const scrollPos = direction > 0 ? Math.ceil(this.pan._value / width) : Math.floor(this.pan._value / width)
+      move = scrollPos * width
+    }
+    const minScroll = (this.props.screens.length - 1) * -width
+    Animated.spring(this.pan, {
+      toValue: this.clamp(move, minScroll, 0),
+      bounciness: 0,
+    }).start()
   }
 
   clamp = (num, min, max) => {
@@ -61,7 +64,7 @@ export default class SimpleScroller extends Component {
   const styles = StyleSheet.create({
     scroller: {
       flex: 1,
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       flexDirection: 'row',
     },
   })
