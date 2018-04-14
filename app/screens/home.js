@@ -7,6 +7,7 @@ import GeoFire from 'geofire'
 import SimpleScroller from '../components/simpleScroller'
 import Profile from './profile'
 import filter from '../modules/filter'
+import Matches from './matches'
 
 
 
@@ -121,6 +122,7 @@ export default class Home extends Component {
         screens={[
          <Profile user={this.state.user} />,
           this.cardStack(),
+          <Matches/>
         ]}/>
     )
   }
