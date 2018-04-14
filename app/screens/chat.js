@@ -10,7 +10,9 @@ export default class Chat extends Component{
     this.setState({messages: demoMessages})
   }
   onSend = (message) => {
-    console.log('message', message)
+    this.setState({
+      messages: [message[0], ...this.state.messages],
+    })
   }
   render(){
     return(
