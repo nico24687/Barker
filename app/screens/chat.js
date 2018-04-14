@@ -16,7 +16,11 @@ export default class Chat extends Component{
   }
   watchChat = () => {
     firebase.database().ref('messages').child(this.chatID).on('value', snap => {
-      console.log('messages', snap.val())
+      let messages = []
+      snap.forEach(message => {
+        messages.push(message.val())
+      })
+      this.setState({messages})
     })
   }
   onSend = (message) => {
