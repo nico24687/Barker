@@ -7,7 +7,8 @@ import _ from 'lodash'
 export default class Matches extends Component{
 
   state ={
-    dataSource: new ListView.DataSource({rowHasChanged: (oldRow, newRow) => oldRow !== newRow })
+    dataSource: new ListView.DataSource({rowHasChanged: (oldRow, newRow) => oldRow !== newRow }),
+    matches: [],
   }
 
   componentWillMount(){
@@ -31,9 +32,13 @@ export default class Matches extends Component{
       const relations = snap.val()
       const allMatches = this.getOverlap(relations.liked, relations.likedBack)
       console.log('allMatches', allMatches)
-      const promises = allMatches.map(profileUid => this.getUser(profileUid))
+      const promises = allMatches.map(profileUid => {
+        const foundProfile = _.find(this.state.matches, profile => profile.uid === profileUid)
+        return foundProfile ? foundProfile : this.getUser(profileUid)
+      } )
       Promise.all(promises).then(data => this.setState({
         dataSource: this.state.dataSource.cloneWithRows(data),
+        matches: data,
       }))
     })
   }
