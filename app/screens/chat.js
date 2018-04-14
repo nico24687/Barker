@@ -12,7 +12,10 @@ export default class Chat extends Component{
   }
   onSend = (message) => {
     firebase.database().ref('messages').child('test')
-      .push(message[0])
+      .push({
+        ...message[0],
+        createdAt: new Date().getTime(),
+      })
   }
   render(){
     return(
