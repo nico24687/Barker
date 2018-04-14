@@ -18,8 +18,7 @@ export default class Matches extends Component{
   getOverlap = (liked, likedBack) => {
     const likedTrue = _.pickBy(liked, value => value )
     const likedBackTrue = _.pickBy(likedBack, value => value)
-    console.log(likedTrue, likedBackTrue)
-    // return AllMatches
+    return _.intersection(_.keys(likedTrue,), _.keys(likedBackTrue))
   }
 
   getMatches = (uid) => {
