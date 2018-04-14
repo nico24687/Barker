@@ -16,7 +16,7 @@ export default class Matches extends Component{
     const {id, first_name, work} = rowData
     const bio = (work && work[0] && work[0].position) ? work[0].position.name : null
     return(
-      <View style={{flexDirection: 'row', backgroundColor: 'white', padding: 10}}>
+      <View style={{flexDirection: 'row', backgroundColor: 'white', padding: 10, marginTop:20}}>
         <CircleImage size={80} facebookID={id}/>
         <View style={{justifyContent: 'center', marginLeft:10}}>
           <Text style={{fontSize:18}}>{first_name}</Text>
