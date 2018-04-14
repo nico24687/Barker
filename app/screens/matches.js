@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {ListView, Text, View} from 'react-native'
 import CircleImage from '../components/circleImage'
 import * as firebase from 'firebase'
+import _ from 'lodash'
 
 export default class Matches extends Component{
 
@@ -14,10 +15,18 @@ export default class Matches extends Component{
     this.getMatches(this.props.user.uid)
   }
 
+  getOverlap = (liked, likedBack) => {
+    const likedTrue = _.pickBy(liked, value => value )
+    const likedBackTrue = _.pickBy(likedBack, value => value)
+    console.log(likedTrue, likedBackTrue)
+    // return AllMatches
+  }
+
   getMatches = (uid) => {
     firebase.database().ref('relationships').child(uid).on('value', snap => {
       const relations = snap.val()
-      console.log(relations)
+      const allMatches = this.getOverlap(relations.liked, relations.likedBack)
+      console.log('allMatches', allMatches)
     })
   }
 
