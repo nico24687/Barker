@@ -20,6 +20,7 @@ export default class Chat extends Component{
       snap.forEach(message => {
         messages.push(message.val())
       })
+      messages.reverse()
       this.setState({messages})
     })
   }
@@ -31,10 +32,11 @@ export default class Chat extends Component{
       })
   }
   render(){
+    const avatar = `https://graph.facebook.com/${this.state.user.id}/picture?height=80`
     return(
       <GiftedChat
         messages={this.state.messages}
-        user={{_id: this.state.user.uid}}
+        user={{_id: this.state.user.uid, avatar}}
         onSend={this.onSend}
       />
     )
