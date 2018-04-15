@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://image.ibb.co/cevSsS/barkermock.png" alt="Adop Shop logo"/>
+  <img src="https://preview.ibb.co/dfTcRn/barkermockup.png" alt="Barker Mockup"/>
 </p>
 
 # Barker
@@ -47,11 +47,6 @@ Open the Application in Expo
 
 Either lauch the simulator or send a link to your smartphone
 
-
-
-### Test Example
-
-Each test ensures working functionality for a particular user story. 
 
 
 ## Built With
