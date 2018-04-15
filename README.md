@@ -7,7 +7,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 
-A social selling platform to allow users to connect directly with local artists. Art listed has no price tags, and no buy it now buttons. Instead users must learn about each piece directly from the artist and negotiate a price that works for both.  
+A new way to connect with local dogs around you. Browse from an extensive collection of canines. Find someone you like, chat directly and arrange a play date between your two furry friends. 
 
 ## Getting Started
 
