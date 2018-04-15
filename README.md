@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.pinimg.com/originals/8e/a9/15/8ea915c2950a58cad7e184b94d6d4bac.jpg" alt="Barker Mockup" />
+  <img src="https://i.pinimg.com/originals/8e/a9/15/8ea915c2950a58cad7e184b94d6d4bac.jpg" alt="Barker Mockup" height="250" width="250"/>
 </p>
 
 # Barker
